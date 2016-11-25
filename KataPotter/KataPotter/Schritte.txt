@@ -15,40 +15,27 @@ Kleinsten Preis ausgeben
 
 
 ---
-[1, 2]
-Tuples:
-- (1), (2)
-- (1, 2)
-
-[1, 1, 3] = 8 + (8 * 2 * 0.95)
-Tuples:
-- (1, 3), (1)
-- (1), (1), (3)
-
-
-[1, 2, 3] = (8 * 3 * 0.90)
-Tuples:
-- (1), (2), (3)
-- (1, 2), (3)
-- (1, 2, 3)
-
-[1, 2, 3, 4] = (8 * 4 * 0.80)
-Tuples:
-- (1), (2), (3), (4)
-- (1, 2), (3), (4)
-- (1, 2, 3), (4)
-- (1, 2, 3, 4)
-
-[1, 1, 2, 2, 3, 3, 4, 5]
-Tuples:
-- (1,2,3,4,5), (1,2,3)
-- (1,2,3,4,5), (1,2), (3)
-- (1,2,3,4,5), (1),(2),(3)
-- (1,2,3,4), (1,2,3,5)
-
 
 (1) = 8 / 8
 (1,2) = 15,2 / 7,6
 (1,2,3) = 21,6 / 7,2
 (1,2,3,4) = 25,6 / 6,4
 (1,2,3,4,5) = 30 / 6
+
+
+---
+
+Beispiel: 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3
+
+(1, 2, 3, 4, 5), (1, 2, 3, 4, 5), (1, 2, 3) => das finden wir bisher
+(1, 2, 3, 4, 5), (1, 2, 3, 4), (1, 2, 3, 5) => finden wir (noch) nicht
+
+Derzeitiger Algorithmus:
+- Bände nach Gesamthäufigkeit absteigend sortiert
+- Maximale Anzahl von Tuple-Items festlegen (5)
+- Ermittlung der größten Tuple-Möglichkeiten mit der maximalen Anzahl => Bsp.: (1, 2, 3, 4, 5)
+- Schritt zuvor solange, bis keine Tuples mehr erstellt werden können
+- Maximale Anzahl Tuple-Items um 1 verringern
+
+Gedanken für neuen Algorithmus:
+- Kartesisches Produkt mit allen, der nicht der eigene Wert ist und nicht schon in einem Tupel drin ist
