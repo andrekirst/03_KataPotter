@@ -20,7 +20,8 @@ namespace KataPotter.Test
             List<TreeItem> expected = new List<TreeItem>();
             expected.Add(new TreeItem()
             {
-                AktuellerBuchSatz = new List<int>() { 1 }
+                AktuellerBuchSatz = new List<int>() { 1 },
+                RestBuecher = new List<int>()
             });
 
             Equalidator.AreEqual(actual, expected);
@@ -35,7 +36,8 @@ namespace KataPotter.Test
             List<TreeItem> expected = new List<TreeItem>();
             expected.Add(new TreeItem()
             {
-                AktuellerBuchSatz = new List<int>() { 1, 2 }
+                AktuellerBuchSatz = new List<int>() { 1, 2 },
+                RestBuecher = new List<int>()
             });
 
             Equalidator.AreEqual(actual, expected);
@@ -50,7 +52,8 @@ namespace KataPotter.Test
             List<TreeItem> expected = new List<TreeItem>();
             expected.Add(new TreeItem()
             {
-                AktuellerBuchSatz = new List<int>() { 1, 2, 3, 4, 5 }
+                AktuellerBuchSatz = new List<int>() { 1, 2, 3, 4, 5 },
+                RestBuecher = new List<int>()
             });
 
             Equalidator.AreEqual(actual, expected);
@@ -67,9 +70,13 @@ namespace KataPotter.Test
             expected.Add(new TreeItem()
             {
                 AktuellerBuchSatz = new List<int>() { 1, 2, 3, 4, 5 },
+                RestBuecher = new List<int>() { 1 },
                 BuecherSaetze = new List<TreeItem>()
                 {
-                    new TreeItem() { AktuellerBuchSatz = new List<int>() { 1 } }
+                    new TreeItem() {
+                        AktuellerBuchSatz = new List<int>() { 1 },
+                        RestBuecher = new List<int>()
+                    },
                 }
             });
 
@@ -86,9 +93,17 @@ namespace KataPotter.Test
             expected.Add(new TreeItem()
             {
                 AktuellerBuchSatz = new List<int>() { 1, 2, 3, 4 },
+                RestBuecher = new List<int>() { 5, 1 },
                 BuecherSaetze = new List<TreeItem>()
                 {
-                    new TreeItem() { AktuellerBuchSatz = new List<int>() { 5, 1 } }
+                    new TreeItem() {
+                        AktuellerBuchSatz = new List<int>() { 5, 1 },
+                        RestBuecher = new List<int>()
+                    },
+                    new TreeItem() {
+                        AktuellerBuchSatz = new List<int>() { 5 },
+                        RestBuecher = new List<int>() { 1 }
+                    }
                 }
             });
 
@@ -105,9 +120,15 @@ namespace KataPotter.Test
             expected.Add(new TreeItem()
             {
                 AktuellerBuchSatz = new List<int>() { 1, 2, 3, 4, 5 },
+                RestBuecher = new List<int>() { 1, 2, 3, 4, 5 },
                 BuecherSaetze = new List<TreeItem>()
                 {
-                    new TreeItem() { AktuellerBuchSatz = new List<int>() { 1, 2, 3, 4, 5 } }
+                    new TreeItem() { AktuellerBuchSatz = new List<int>() { 1, 2, 3, 4, 5 }, RestBuecher = new List<int>() },
+                    new TreeItem() { AktuellerBuchSatz = new List<int>() { 1, 2, 3, 4 }, RestBuecher = new List<int>() { 5 } },
+                    new TreeItem() { AktuellerBuchSatz = new List<int>() { 1, 2, 3 }, RestBuecher = new List<int>() { 4, 5 } },
+                    new TreeItem() { AktuellerBuchSatz = new List<int>() { 1, 2 }, RestBuecher = new List<int>() { 3, 4, 5 } },
+                    new TreeItem() { AktuellerBuchSatz = new List<int>() { 1 }, RestBuecher = new List<int>() { 2, 3, 4, 5 } }
+
                 }
             });
 

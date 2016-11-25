@@ -39,3 +39,14 @@ Derzeitiger Algorithmus:
 
 Gedanken für neuen Algorithmus:
 - Kartesisches Produkt mit allen, der nicht der eigene Wert ist und nicht schon in einem Tupel drin ist
+- Bauen eines Baumes
+Bsp: 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3
+                       (1, 2, 3, 4, 5)
+       |                |            |          |      |
+(1, 2, 3, 4, 5) # (1, 2, 3, 4) # (1, 2, 3) # (1, 2) # (1)
+           |
+(1, 2, 3) (1, 2) (1)
+            |     |
+		   (3)   (2)
+		          |
+				 (3)
