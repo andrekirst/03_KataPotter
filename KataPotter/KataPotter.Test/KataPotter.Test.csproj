@@ -54,7 +54,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="TestKataPotter.cs" />
+    <Compile Include="Berechne_Pfade.cs" />
+    <Compile Include="Finde_Tuple.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
