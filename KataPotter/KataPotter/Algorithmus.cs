@@ -36,10 +36,6 @@ namespace KataPotter
 
             Finde_Tuple_Ergebnis ergebnis = Finde_Tuple(restSaetze, tupleLaenge);
 
-            TreeItem item = new TreeItem() { AktuellerBuchSatz = ergebnis.GefundeneBuecher };
-            item.RestBuecher = ergebnis.RestBuecher;
-            item.BuecherSaetze = new List<TreeItem>();
-
             if (ergebnis.RestBuecher != null && ergebnis.RestBuecher.Count() > 0)
             {
                 int start = Math.Min(tupleLaenge, ergebnis.RestBuecher.Count());
@@ -49,11 +45,10 @@ namespace KataPotter
                     Finde_Tuple_Ergebnis subErgebnis = Finde_Tuple(ergebnis.RestBuecher, i);
                     subItem.AktuellerBuchSatz = subErgebnis.GefundeneBuecher;
                     subItem.RestBuecher = subErgebnis.RestBuecher;
-                    item.BuecherSaetze.Add(subItem);
-                } 
+                    result.Add(subItem);
+                }
             }
 
-            result.Add(item);
             return result;
         }
     }
