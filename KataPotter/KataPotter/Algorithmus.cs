@@ -30,23 +30,25 @@ namespace KataPotter
             return new Finde_Tuple_Ergebnis(ergebnisSatz, restBuecher);
         }
 
-        public static List<TreeItem> Berechne_Pfade(List<int> restSaetze, int tupleLaenge)
+        public static List<TreeItem> Berechne_Pfade(List<int> restSaetze, int geplanteTupleLaenge)
         {
             List<TreeItem> result = new List<TreeItem>();
 
-            Finde_Tuple_Ergebnis ergebnis = Finde_Tuple(restSaetze, tupleLaenge);
+            int tupleLaenge = Math.Min(geplanteTupleLaenge, restSaetze.Count());
 
-            if (ergebnis.RestBuecher != null && ergebnis.RestBuecher.Count() > 0)
+            while (tupleLaenge > 0)
             {
-                int start = Math.Min(tupleLaenge, ergebnis.RestBuecher.Count());
-                for (int i = start; i >= 1; i--)
+                Finde_Tuple_Ergebnis ergebnis = Finde_Tuple(restSaetze, tupleLaenge);
+
+                tupleLaenge = ergebnis.GefundeneBuecher.Count();
+
+                result.Add(new TreeItem()
                 {
-                    TreeItem subItem = new TreeItem();
-                    Finde_Tuple_Ergebnis subErgebnis = Finde_Tuple(ergebnis.RestBuecher, i);
-                    subItem.AktuellerBuchSatz = subErgebnis.GefundeneBuecher;
-                    subItem.RestBuecher = subErgebnis.RestBuecher;
-                    result.Add(subItem);
-                }
+                    AktuellerBuchSatz = ergebnis.GefundeneBuecher,
+                    BuecherSaetze = Berechne_Pfade(ergebnis.RestBuecher, tupleLaenge),
+                    RestBuecher = ergebnis.RestBuecher
+                });
+                tupleLaenge--;
             }
 
             return result;
