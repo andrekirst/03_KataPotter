@@ -55,6 +55,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Berechne_Pfade.cs" />
+    <Compile Include="Berechne_Bestpreis.cs" />
+    <Compile Include="Berechne_Preis_fuer_Tuple.cs" />
+    <Compile Include="Berechne_Preise.cs" />
     <Compile Include="Finde_Tuple.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
