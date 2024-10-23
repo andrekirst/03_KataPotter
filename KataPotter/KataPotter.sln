@@ -1,11 +1,11 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KataPotter", "KataPotter\KataPotter.csproj", "{87877619-4C8A-47EB-83A4-A8B27DE4573A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KataPotter", "KataPotter\KataPotter.csproj", "{87877619-4C8A-47EB-83A4-A8B27DE4573A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KataPotter.Test", "KataPotter.Test\KataPotter.Test.csproj", "{C0A1FEC1-4AB5-4D63-BA7A-F8A9CF33CA30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KataPotter.Test", "KataPotter.Test\KataPotter.Test.csproj", "{C0A1FEC1-4AB5-4D63-BA7A-F8A9CF33CA30}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

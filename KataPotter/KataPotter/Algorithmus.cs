@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KataPotter
 {
     public static class Algorithmus
     {
-        public static Dictionary<int, double> Rabatte = new Dictionary<int, double>()
+        private static readonly Dictionary<int, double> Rabatte = new()
         {
             { 1, 1.0 },
             { 2, 0.95 },
@@ -17,16 +15,16 @@ namespace KataPotter
             { 5, 0.75 }
         };
 
-        public static Finde_Tuple_Ergebnis Finde_Tuple(List<int> buecherliste, int tupleLaenge)
+        public static FindeTupleErgebnis Finde_Tuple(List<int> buecherliste, int tupleLaenge)
         {
-            int index = 0;
-            int band = 0;
-            List<int> ergebnisSatz = new List<int>();
-            List<int> restBuecher = new List<int>();
+            var index = 0;
+            var band = 0;
+            var ergebnisSatz = new List<int>();
+            var restBuecher = new List<int>();
 
             do
             {
-                if (buecherliste[index] != band && ergebnisSatz.Count() < tupleLaenge)
+                if (buecherliste[index] != band && ergebnisSatz.Count < tupleLaenge)
                 {
                     ergebnisSatz.Add(buecherliste[index]);
                     band = buecherliste[index++];
@@ -35,44 +33,39 @@ namespace KataPotter
                 {
                     restBuecher.Add(buecherliste[index++]);
                 }
-            } while (buecherliste.Count() > index);
-            return new Finde_Tuple_Ergebnis(ergebnisSatz, restBuecher);
+            } while (buecherliste.Count > index);
+            return new FindeTupleErgebnis(ergebnisSatz, restBuecher);
         }
 
         public static double Berechne_Bestpreis(List<int> buecherListe)
         {
-            List<TreeItem> pfade = Berechne_Pfade(buecherListe, 5);
+            var pfade = Berechne_Pfade(buecherListe, 5);
 
-            List<double> preise = new List<double>();
+            var preise = new List<double>();
 
-            foreach (TreeItem pfad in pfade)
+            foreach (var zwischenpreise in pfade.Select(pfad => BerechnePreise(pfad, [])))
             {
-                List<double> zwischenpreise = Berechne_Preise(pfad, new List<double>());
                 preise.AddRange(zwischenpreise);
             }
 
             return preise.Min();
         }
 
-        public static double Berechne_Preis_fuer_Tuple(List<int> tuple)
-        {
-            return Rabatte[tuple.Count()] * (double)tuple.Count() * 8.0;
-        }
+        public static double BerechnePreisFuerTuple(List<int> tuple) => Rabatte[tuple.Count] * tuple.Count * 8.0;
 
-        public static List<double> Berechne_Preise(TreeItem currentTreeItem, List<double> preisListe, double zwischensumme = 0.0)
+        public static List<double> BerechnePreise(TreeItem currentTreeItem, List<double> preisListe, double zwischensumme = 0.0)
         {
-            // sind wir das unterste Blatt des Pfades
-            zwischensumme += Berechne_Preis_fuer_Tuple(currentTreeItem.AktuellerBuchSatz);
+            zwischensumme += BerechnePreisFuerTuple(currentTreeItem.AktuellerBuchSatz);
 
-            if (currentTreeItem.BuecherSaetze.Count() == 0)
+            if (currentTreeItem.BuecherSaetze.Count == 0)
             {
                 preisListe.Add(zwischensumme);
             }
             else
             {
-                foreach (TreeItem kind in currentTreeItem.BuecherSaetze)
+                foreach (var kind in currentTreeItem.BuecherSaetze)
                 {
-                    Berechne_Preise(kind, preisListe, zwischensumme);
+                    BerechnePreise(kind, preisListe, zwischensumme);
                 }
             }
 
@@ -81,17 +74,17 @@ namespace KataPotter
 
         public static List<TreeItem> Berechne_Pfade(List<int> restSaetze, int geplanteTupleLaenge)
         {
-            List<TreeItem> result = new List<TreeItem>();
-
-            int tupleLaenge = Math.Min(geplanteTupleLaenge, restSaetze.Count());
-
+            var result = new List<TreeItem>();
+        
+            var tupleLaenge = Math.Min(geplanteTupleLaenge, restSaetze.Count);
+        
             while (tupleLaenge > 0)
             {
-                Finde_Tuple_Ergebnis ergebnis = Finde_Tuple(restSaetze, tupleLaenge);
-
-                tupleLaenge = ergebnis.GefundeneBuecher.Count();
-
-                result.Add(new TreeItem()
+                var ergebnis = Finde_Tuple(restSaetze, tupleLaenge);
+        
+                tupleLaenge = ergebnis.GefundeneBuecher.Count;
+        
+                result.Add(new TreeItem
                 {
                     AktuellerBuchSatz = ergebnis.GefundeneBuecher,
                     BuecherSaetze = Berechne_Pfade(ergebnis.RestBuecher, tupleLaenge),
@@ -99,7 +92,7 @@ namespace KataPotter
                 });
                 tupleLaenge--;
             }
-
+        
             return result;
         }
     }
